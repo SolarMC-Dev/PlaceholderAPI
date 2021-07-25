@@ -1,12 +1,12 @@
 name: "Test compiling against Java 8, 11 and 16"
 
-on:
-  pull_request:
-    branches:
-    - development
-    paths:
-    - "src/**"
-    - "build.gradle"
+on: {} # Solar - don't trigger at all
+#  pull_request:
+#    branches:
+#    - development
+#    paths:
+#    - "src/**"
+#    - "build.gradle"
 
 jobs:
   testBuilds:

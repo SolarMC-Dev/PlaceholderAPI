@@ -30,6 +30,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.Version;
 import me.clip.placeholderapi.expansion.manager.CloudExpansionManager;
 import me.clip.placeholderapi.expansion.manager.LocalExpansionManager;
+/* Solar start
 import me.clip.placeholderapi.listeners.ServerLoadEventListener;
 import me.clip.placeholderapi.updatechecker.UpdateChecker;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -37,6 +38,7 @@ import net.kyori.adventure.text.serializer.craftbukkit.MinecraftComponentSeriali
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.AdvancedPie;
 import org.bstats.charts.SimplePie;
+*/ // Solar end
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
@@ -77,7 +79,7 @@ public final class PlaceholderAPIPlugin extends JavaPlugin {
   @NotNull
   private final CloudExpansionManager cloudExpansionManager = new CloudExpansionManager(this);
 
-  private BukkitAudiences adventure;
+//  private BukkitAudiences adventure; // Solar - remove bukkit audiences
 
   /**
    * Gets the static instance of the main class for PlaceholderAPI. This class is not the actual API
@@ -144,14 +146,14 @@ public final class PlaceholderAPIPlugin extends JavaPlugin {
     setupMetrics();
     setupExpansions();
 
-    adventure = BukkitAudiences.create(this);
+//    adventure = BukkitAudiences.create(this); // Solar
 
     if (config.isCloudEnabled()) {
       getCloudExpansionManager().load();
     }
 
     if (config.checkUpdates()) {
-      new UpdateChecker(this).fetch();
+//      new UpdateChecker(this).fetch(); // Solar
     }
   }
 
@@ -164,8 +166,8 @@ public final class PlaceholderAPIPlugin extends JavaPlugin {
 
     Bukkit.getScheduler().cancelTasks(this);
 
-    adventure.close();
-    adventure = null;
+//    adventure.close(); // Solar
+//    adventure = null; // Solar
 
     instance = null;
   }
@@ -194,6 +196,7 @@ public final class PlaceholderAPIPlugin extends JavaPlugin {
     return cloudExpansionManager;
   }
 
+/* Solar start
   @NotNull
   public BukkitAudiences getAdventure() {
     if(adventure == null) {
@@ -202,6 +205,7 @@ public final class PlaceholderAPIPlugin extends JavaPlugin {
 
     return adventure;
   }
+*/ // Solar end
 
   /**
    * Obtain the configuration class for PlaceholderAPI.
@@ -225,6 +229,7 @@ public final class PlaceholderAPIPlugin extends JavaPlugin {
   }
 
   private void setupMetrics() {
+/* Solar start - remove metrics
     final Metrics metrics = new Metrics(this, 438);
     metrics.addCustomChart(new SimplePie("using_expansion_cloud",
         () -> getPlaceholderAPIConfig().isCloudEnabled() ? "yes" : "no"));
@@ -241,18 +246,21 @@ public final class PlaceholderAPIPlugin extends JavaPlugin {
 
       return values;
     }));
+*/ // Solar end
   }
 
   private void setupExpansions() {
     Bukkit.getPluginManager().registerEvents(getLocalExpansionManager(), this);
 
+/* Solar start
     try {
       Class.forName("org.bukkit.event.server.ServerLoadEvent");
       new ServerLoadEventListener(this);
     } catch (final ExceptionInInitializerError | ClassNotFoundException ignored) {
+*/
       Bukkit.getScheduler()
           .runTaskLater(this, () -> getLocalExpansionManager().load(Bukkit.getConsoleSender()), 1);
-    }
+//    } // Solar end
   }
 
 }
