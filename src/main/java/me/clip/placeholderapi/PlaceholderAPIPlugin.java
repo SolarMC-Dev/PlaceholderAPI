@@ -54,10 +54,10 @@ import org.jetbrains.annotations.NotNull;
 public final class PlaceholderAPIPlugin extends JavaPlugin {
 
   @NotNull
-  private static final Version VERSION;
+  private final Version VERSION; // Solar - non-static
   private static PlaceholderAPIPlugin instance;
 
-  static {
+  { // Solar - non-static initializer
     final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 
     boolean isSpigot;
@@ -88,7 +88,7 @@ public final class PlaceholderAPIPlugin extends JavaPlugin {
    *
    * @return PlaceholderAPIPlugin instance
    */
-  @NotNull
+//  @NotNull // Solar - this is nullable; PAPI is full of global state
   public static PlaceholderAPIPlugin getInstance() {
     return instance;
   }
@@ -130,7 +130,7 @@ public final class PlaceholderAPIPlugin extends JavaPlugin {
   }
 
   public static Version getServerVersion() {
-    return VERSION;
+    return instance.VERSION; // Solar
   }
 
   @Override

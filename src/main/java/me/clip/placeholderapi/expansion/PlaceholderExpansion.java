@@ -153,7 +153,7 @@ public abstract class PlaceholderExpansion extends PlaceholderHook {
    *
    * @return {@link PlaceholderAPIPlugin} instance
    */
-  @NotNull
+//  @NotNull // Solar - this is nullable; PAPI is full of global state
   public final PlaceholderAPIPlugin getPlaceholderAPI() {
     return PlaceholderAPIPlugin.getInstance();
   }
