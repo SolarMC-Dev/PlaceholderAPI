@@ -55,6 +55,10 @@ java {
 compileJava {
     options.javaModuleVersion = provider { project.version }
 }
+
+jar.manifest {
+    attributes "Automatic-Module-Name" : "me.clip.placeholderapi"
+}
 // Solar end
 
 tasks.withType(JavaCompile) {
